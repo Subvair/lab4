@@ -53,7 +53,7 @@ public class TextFile {
 public class TextFileSearcher {
     public static List<string> Search(string directory, string keyword) {
         var files = Directory.GetFiles(directory, "*.txt");
-        return files.Where(f => File.ReadAllText(f).Contains(keyword)).ToList();
+        return files.Where(pathFile => File.ReadAllText(pathFile).Contains(keyword)).ToList();
     }
 }
 
