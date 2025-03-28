@@ -77,6 +77,20 @@ public class TextEditor {
     }
 }
 
+public class TextFileIndexer {
+    private Dictionary<string, List<string>> _index = new Dictionary<string, List<string>>();
+
+    public void IndexDirectory(string directory, string[] keywords) {
+        foreach (var keyword in keywords) {
+            _index[keyword] = TextFileSearcher.Search(directory, keyword);
+        }
+    }
+
+    public List<string> GetFilesForKeyword(string keyword) {
+        return _index.ContainsKey(keyword) ? _index[keyword] : new List<string>();
+    }
+}
+
 class Program {
     static void Main() {
 
