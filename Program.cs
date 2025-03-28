@@ -130,3 +130,4 @@ class Program {
     Console.WriteLine("=== Все тесты завершены ===");
   }
 }
+ 
