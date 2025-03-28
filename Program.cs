@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Serialization;
 
 [Serializable]
 public class TextFile {
@@ -48,6 +53,29 @@ public class TextFileSearcher {
     }
 }
 
+public class TextEditor {
+    private string _filePath;
+    private Stack<string> _history = new Stack<string>();
+
+    public TextEditor(string filePath) {
+        _filePath = filePath;
+        if (File.Exists(filePath)) {
+            _history.Push(File.ReadAllText(filePath));
+        }
+    }
+
+    public void Edit(string newContent) {
+        _history.Push(newContent);
+        File.WriteAllText(_filePath, newContent);
+    }
+
+    public void Undo() {
+        if (_history.Count > 1) {
+            _history.Pop();
+            File.WriteAllText(_filePath, _history.Peek());
+        }
+    }
+}
 
 class Program {
     static void Main() {
