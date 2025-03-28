@@ -93,6 +93,37 @@ public class TextFileIndexer {
 
 class Program {
     static void Main() {
+        Console.WriteLine("=== Тестирование функционала TextFile ===");
 
+        // 1️⃣ Тест: Создание объекта
+        TextFile file = new TextFile("test.txt", "Тестовое содержимое");
+        if (file.FileName == "test.txt" && file.Content == "Тестовое содержимое")
+            Console.WriteLine("[✔] Тест создания объекта прошёл");
+        else
+            Console.WriteLine("[❌] Ошибка в создании объекта");
+
+        // 2️⃣ Тест: Сохранение в XML
+        string filePath = "test_file.xml";
+        file.SaveXml(filePath);
+        if (File.Exists(filePath))
+            Console.WriteLine("[✔] Тест сохранения в XML прошёл");
+        else
+            Console.WriteLine("[❌] Ошибка при сохранении в XML");
+
+        // 3️⃣ Тест: Загрузка из XML
+        TextFile loadedFile = TextFile.LoadXml(filePath);
+        if (loadedFile.FileName == "test.txt" && loadedFile.Content == "Тестовое содержимое")
+            Console.WriteLine("[✔] Тест загрузки из XML прошёл");
+        else
+            Console.WriteLine("[❌] Ошибка при загрузке из XML");
+
+        // 4️⃣ Тест: Проверка работы с файлом
+        File.Delete(filePath);
+        if (!File.Exists(filePath))
+            Console.WriteLine("[✔] Тест удаления файла прошёл");
+        else
+            Console.WriteLine("[❌] Ошибка при удалении файла");
+
+        Console.WriteLine("=== Все тесты завершены ===");
     }
 }
