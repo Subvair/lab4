@@ -18,14 +18,18 @@ public class TextFile {
 
     public void SaveBinary(string path) {
         using (FileStream fs = new FileStream(path, FileMode.Create)) {
+            #pragma warning disable SYSLIB0011
             BinaryFormatter formatter = new BinaryFormatter();
+            #pragma warning disable SYSLIB0011
             formatter.Serialize(fs, this);
         }
     }
 
     public static TextFile LoadBinary(string path) {
         using (FileStream fs = new FileStream(path, FileMode.Open)) {
+            #pragma warning disable SYSLIB0011
             BinaryFormatter formatter = new BinaryFormatter();
+            #pragma warning disable SYSLIB0011
             return (TextFile)formatter.Deserialize(fs);
         }
     }
